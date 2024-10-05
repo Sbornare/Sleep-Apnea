@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleep Apnea</title>
+    <style>
+        body {
+            /* background: url("https://media.giphy.com/media/duzpaTbCUy9Vu/giphy.gif?cid=790b76112yvwlfdl9kzeyx7e98sv7kks126wc7pjgviyahme&ep=v1_gifs_search&rid=giphy.gif&ct=g"); */
+            
+            background-repeat: no-repeat;
+            background-size: 100% 640px;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            
+        }
+        .main {
+            background-color: rgba(0, 0, 0, 0.689);
+            
+            border-radius: 15px;
+            margin-top: 20px;
+            min-height:200px ;
+            min-width: 500px;
+            max-width:80r0px
+        }
+        .formdiv {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="formdiv">
+            
+            <h3 style="padding:20px;border-top-left-radius: 20px;border-top-right-radius: 20px;  color: rgb(231, 171, 137);font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;background-color: rgba(0, 0, 0, 0.722);width: 100%;text-align: center;">Sleep Apnea</h3>
+            {% if len %}
+            <form id="uploadForm" action="/uploads" method="post" enctype="multipart/form-data">
+            <div style="display: flex;justify-content: space-evenly;width: 400px;">
+
+                
+                <div>
+                <label for="cars" style="font-size: 20px;max-width: 200px;">Choose a testsignal:</label>
+                </div>
+                <div>
+                    
+                <select id="cars" name="test_input" style="font-size: 20px;background: local;color: aquamarine;border: 1px solid rgb(77, 232, 77);height: 100%;padding: 5px;width: 100px;" onfocus='this.size=5;' onblur='this.size=1;'onchange='this.size=1; this.blur();'>
+                    {% for i in range(len) %}
+                    <option value="{{test[i]}}" style="width: 100px;text-align: center;">{{test[i]}}</option>
+                    {% endfor %}
+                </select>
+                    
+                </div>
+                
+
+            </div>
+            <div style="width: 100%;display: flex;justify-content: center;" id="imgtitle">
+                <button style="margin-top:20px">Submit</button>
+
+                
+                
+            </div>
+                
+            <div style="width: 100%;display: flex;justify-content: center;">
+                <div id="imageContainer" ></div>
+
+            </div>
+            <div style="width: 100%;display: flex;justify-content: center;" id="predbutton">
+
+                
+            </div>
+            </form>
+
+            {% elif size %}
+            <form id="uploadForm" action="/predict" method="post" enctype="multipart/form-data">
+                <div style="display: flex;justify-content: space-evenly;width: 600px;">
+    
+                    
+                    <div>
+                    <label for="cars" style="font-size: 20px;max-width: 200px;">Choosed a test signal: </label>
+                    </div>
+                    <div>
+                        <h5 style="font-size: 20px;background: local;color: aquamarine;border: 1px solid rgb(77, 232, 77);padding: 5px;width: 100px;text-align: center;">{{test}}</h5>
+                    </div>
+                    
+    
+                </div>
+                <div style="display: flex;justify-content: space-evenly;width: 600px;">
+                    <label for="">Input A number 0 to {{size}}</label>
+                        <input type="number" name="number">
+                </div>
+                <div style="width: 100%;display: flex;justify-content: center;" id="imgtitle">
+                    <button style="margin-top:20px">Submit</button>
+    
+                    
+                    
+                </div>
+                    
+                <div style="width: 100%;display: flex;justify-content: center;">
+                    <div id="imageContainer" ></div>
+    
+                </div>
+                <div style="width: 100%;display: flex;justify-content: center;" id="predbutton">
+    
+                    
+                </div>
+                </form>
+
+                {% else%} 
+                <h3>Prediction : {{result}}</h3>
+                <img src="data:image/png;base64,{{ plot_url }}" alt="Your Plot" style="max-width: 750px;padding: 5px;">
+                
+                {% endif%}
+               
+
+            
+            
+
+        </div>
+    </div>
+</body>
